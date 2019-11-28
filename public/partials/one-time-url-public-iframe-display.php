@@ -12,5 +12,6 @@
  */
 
 ?>
+<iframe src="/wp-content/plugins/OneTimeUrl/download.php?uuid=<?php echo esc_attr( (string) $uuid4 ); ?>"
+width="100%" height="480" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
 
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->

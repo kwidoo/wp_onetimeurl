@@ -30,5 +30,4 @@ class One_Time_Url_Activator {
 	public static function activate() {
 
 	}
-
 }

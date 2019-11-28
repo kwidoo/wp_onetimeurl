@@ -168,10 +168,9 @@ class One_Time_Url {
 	private function define_public_hooks() {
 
 		$plugin_public = new One_Time_Url_Public( $this->get_one_time_url(), $this->get_version() );
-
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
+		$this->loader->add_action( 'after_setup_theme', $plugin_public, 'register_filters' );
 	}
 
 	/**
@@ -182,7 +181,6 @@ class One_Time_Url {
 	public function run() {
 		$this->loader->run();
 	}
-
 	/**
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
@@ -213,5 +211,4 @@ class One_Time_Url {
 	public function get_version() {
 		return $this->version;
 	}
-
 }

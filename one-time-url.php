@@ -24,6 +24,11 @@
  * Domain Path:       /languages
  */
 
+/** Include the Composer autoload file. */
+require 'vendor/autoload.php';
+
+
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;

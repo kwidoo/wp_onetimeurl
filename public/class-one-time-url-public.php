@@ -9,6 +9,8 @@
  * @subpackage One_Time_Url/public
  */
 
+use Ramsey\Uuid\Uuid;
+
 /**
  * The public-facing functionality of the plugin.
  *
@@ -49,7 +51,7 @@ class One_Time_Url_Public {
 	public function __construct( $one_time_url, $version ) {
 
 		$this->one_time_url = $one_time_url;
-		$this->version = $version;
+		$this->version      = $version;
 
 	}
 
@@ -72,7 +74,9 @@ class One_Time_Url_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->one_time_url, plugin_dir_url( __FILE__ ) . 'css/one-time-url-public.css', array(), $this->version, 'all' );
+		/** phpcs:ignore
+		 *  wp_enqueue_style( $this->one_time_url, plugin_dir_url( __FILE__ ) . 'css/one-time-url-public.css', array(), $this->version, 'all' );
+		 */
 
 	}
 
@@ -95,8 +99,47 @@ class One_Time_Url_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->one_time_url, plugin_dir_url( __FILE__ ) . 'js/one-time-url-public.js', array( 'jquery' ), $this->version, false );
-
+		/** phpcs:ignore
+		 *  wp_enqueue_script( $this->one_time_url, plugin_dir_url( __FILE__ ) . 'js/one-time-url-public.js', array( 'jquery' ), $this->version, false );
+		 */
 	}
 
+	/**
+	 * Register Shorcode 'otu_iframe'
+	 *
+	 * @since    1.0.0
+	 */
+	public function register_filters() {
+		add_shortcode( 'otu_iframe', array( $this, 'otu_shortcode_iframe' ), 1, 2 );
+	}
+
+	/**
+	 * Shorcode otu_iframe
+	 *
+	 * @since    1.0.0
+	 *
+	 * @param array  $params  Other Params, currently null.
+	 * @param string $content Content between tags.
+	 *
+	 * @return void
+	 */
+	public function otu_shortcode_iframe( $params, $content ) {
+		if ( get_current_user_id() ) {
+			global $wpdb;
+			global $wp;
+			$table = $wpdb->prefix . 'otu_mapping';
+			$uuid4 = Uuid::uuid4();
+
+			$data  = array(
+				'url'     => $content,
+				'uuid'    => (string) $uuid4,
+				'referer' => get_permalink( get_the_ID() ),
+				'user_id' => get_current_user_id(),
+				'time'    => gmdate( 'Y-m-d H:i:s' ),
+			);
+			// phpcs:ignore
+			$wpdb->insert( $table, $data );
+			include_once 'partials/one-time-url-public-iframe-display.php';
+		}
+	}
 }
