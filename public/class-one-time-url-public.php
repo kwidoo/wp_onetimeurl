@@ -112,8 +112,6 @@ class One_Time_Url_Public {
 	public function register_filters() {
 		add_shortcode( 'otu_iframe', array( $this, 'otu_shortcode_iframe' ), 1, 2 );
 		add_shortcode( 'otu', array( $this, 'otu_shortcode' ), 1, 2 );
-		//add_action( 'init', array( $this, 'mce_otu_iframe_init' ) );
-
 	}
 
 	/**
@@ -169,7 +167,7 @@ class One_Time_Url_Public {
 		$table = $wpdb->prefix . 'otu_mapping';
 		$uuid4 = Uuid::uuid4();
 
-		$data   = array(
+		$data = array(
 			'url'     => $content,
 			'uuid'    => (string) $uuid4,
 			'referer' => get_permalink( get_the_ID() ),
@@ -194,26 +192,5 @@ class One_Time_Url_Public {
 		return '<video controls ' . $output . ' >
 		<source src="' . $content . '" type="video/mp4">
 		</video>';
-	}
-	/**
-	 * Add tinymce filter
-	 *
-	 * @since    1.0.0
-	 */
-	public function mce_otu_iframe_init() {
-		add_filter( 'mce_external_plugins', array( $this, 'add_mce_plugin' ) );
-	}
-
-	/**
-	 * Add tinyMCE plugin
-	 *
-	 * @since    1.0.0
-	 *
-	 * @param array $plugin_array Plugin Array.
-	 */
-	public function add_mce_plugin( $plugin_array ) {
-		$plugin_array['xbbcode']    = plugins_url() . '/OneTimeUrl/public/js/xbbcode.js';
-		$plugin_array['otu_plugin'] = plugins_url() . '/OneTimeUrl/public/js/otu_iframe_plugin.js';
-		return $plugin_array;
 	}
 }

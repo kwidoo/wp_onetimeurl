@@ -9,7 +9,7 @@ $uuid4 = $_GET['uuid'];
 
 include_once 'config.php';
 
-$data = $database->select('wp_bzvmqg_otu_mapping', [
+$data = $database->select($table, [
 	'id',
 	'url',
 	'referer',
@@ -26,7 +26,7 @@ $e_date = date("Y-m-d H:i:s", strtotime('+2 hours', strtotime($data[0]['time']))
 if ($e_date < $s_date) {
     return ;
 }
-$new = $database->update("wp_bzvmqg_otu_mapping", [
+$new = $database->update($table, [
 	"clicked" => $data[0]['clicked']+1,
 ], [
 	"id" => $data[0]['id']

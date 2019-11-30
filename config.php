@@ -13,3 +13,5 @@ $database = new Medoo([
 	'password' => DB_PASSWORD,
 ]);
 
+$table = $table_prefix.'otu_mapping';
+

@@ -58,6 +58,7 @@ class One_Time_Url_Admin {
 	 *
 	 * @since    1.0.0
 	 */
+	//phpcs:disable
 	public function enqueue_styles() {
 
 		/**
@@ -72,7 +73,7 @@ class One_Time_Url_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->one_time_url, plugin_dir_url( __FILE__ ) . 'css/one-time-url-admin.css', array(), $this->version, 'all' );
+		/** wp_enqueue_style( $this->one_time_url, plugin_dir_url( __FILE__ ) . 'css/one-time-url-admin.css', array(), $this->version, 'all' );*/
 
 	}
 
@@ -95,7 +96,7 @@ class One_Time_Url_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->one_time_url, plugin_dir_url( __FILE__ ) . 'js/one-time-url-admin.js', array( 'jquery' ), $this->version, false );
+		/** wp_enqueue_script( $this->one_time_url, plugin_dir_url( __FILE__ ) . 'js/one-time-url-admin.js', array( 'jquery' ), $this->version, false );*/
 
 	}
 

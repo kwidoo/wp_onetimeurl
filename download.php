@@ -18,7 +18,7 @@ $client = new Client(
 	)
 );
 
-$data = $database->select('wp_bzvmqg_otu_mapping', [
+$data = $database->select($table, [
 	'id',
 	'url',
 	'referer',
@@ -33,7 +33,7 @@ if (!array_key_exists(0, $data)) {
 if ($data[0]['clicked'] == true) {
 	return ;
 }
-$new = $database->update("wp_bzvmqg_otu_mapping", [
+$new = $database->update($table, [
 	"clicked" => 1
 ], [
 	"id" => $data[0]['id']
