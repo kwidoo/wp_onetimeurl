@@ -1,19 +1,15 @@
-<?php
-//phpcs:disable
+<?php //phpcs:disable
 
 use GuzzleHttp\Client;
 use Medoo\Medoo;
 
+require( __DIR__ . '../../../../wp-config.php' );
+
 $database = new Medoo([
 	'database_type' => 'mysql',
-	'database_name' => 'turk',
-	'server' => '127.0.0.1',
-	'username' => 'turk',
-	'password' => 'jsdOj7GiTFDZ79p7A42'
+	'database_name' => DB_NAME,
+	'server' => DB_HOST,
+	'username' => DB_USER,
+	'password' => DB_PASSWORD,
 ]);
 
-$client = new Client(
-	array(
-		'base_uri' => 'https://player.vimeo.com/video/',
-	)
-);

@@ -29,7 +29,9 @@ class One_Time_Url_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
+		global $wpdb;
+		$table = $wpdb->prefix . 'otu_mapping';
+		//phpcs:ignore
+		$wpdb->query( "DROP TABLE IF EXISTS " . $table );
 	}
-
 }

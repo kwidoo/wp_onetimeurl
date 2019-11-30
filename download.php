@@ -12,6 +12,12 @@ $uuid4 = $_GET['uuid'];
 
 include_once 'config.php';
 
+$client = new Client(
+	array(
+		'base_uri' => 'https://player.vimeo.com/video/',
+	)
+);
+
 $data = $database->select('wp_bzvmqg_otu_mapping', [
 	'id',
 	'url',
@@ -39,7 +45,7 @@ $response = $client->request(
 	$url[count($url)-1],
 	array(
 		'headers' => array(
-			'Referer' => 'https://turk-flix.xyz/',//$data[0]['referer'],//sahsiyet-episode-12-english-subtitles/',
+			'Referer' => $_SERVER['SERVER_ADDR'] == '127.0.0.1' ? "https://turk-flix.xyz/" : $_SERVER['HTTP_REFERER'],
 			'Accept'  => 'text/html;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
 			'Accept-Encoding' => 'gzip, deflate, br',
 			'Accept-Language' => 'ru,lv;q=0.9,en-US;q=0.8,en;q=0.7',
@@ -50,7 +56,8 @@ $response = $client->request(
 			'Sec-Fetch-Mode' => 'nested-navigate',
 			'Sec-Fetch-Site' => 'cross-site',
 			'Upgrade-Insecure-Requests' => 1,
-			'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36',
+			'User-Agent' => $_SERVER['HTTP_USER_AGENT']
+			,
 		),
 	)
 );
